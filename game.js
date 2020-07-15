@@ -1,58 +1,59 @@
 class Game {}
 
-var COBBLESTONE = 4;
-var WOOD_PLANK = 5;
-var WOOD = 17;
-var TORCH = 50;
-var CHEST = 54;
-var CRAFTING_TABLE = 58;
-var FURNACE = 61;
-var REDSTONETORCH = 76;
-var REDSTONE_BLOCK = 152;
-var IRON_SHOVEL = 256;
-var IRON_PICKAXE = 257;
-var IRON_AXE = 258;
-var FLINT_AND_STEEL = 259;
-var BOW = 261;
-var ARROW = 262;
-var COAL = 263;
-var DIAMOND = 264;
-var IRON_INGOT = 265;
-var GOLD = 266;
-var IRON_SWORD = 267;
-var WOODEN_SWORD = 268;
-var WOODEN_SHOVEL = 269;
-var WOODEN_PICKAXE = 270;
-var WOODEN_AXE = 271;
-var STONE_SWORD = 272;
-var STONE_SHOVEL = 273;
-var STONE_PICKAXE = 274;
-var STONE_AXE = 275;
-var DIAMOND_SWORD = 276;
-var DIAMOND_SHOVEL = 277;
-var DIAMOND_PICKAXE = 278;
-var DIAMOND_AXE = 279;
-var STICK = 280;
-var GOLDEN_SWORD = 283;
-var GOLDEN_SHOVEL = 284;
-var GOLDEN_PICKAXE = 285;
-var GOLDEN_AXE = 286;
-var STRING = 287;
-var FEATHER = 288;
-var WOODEN_HOE = 290;
-var STONE_HOE = 291;
-var IRON_HOE = 292;
-var DIAMOND_HOE = 293;
-var GOLDEN_HOE = 294;
-var FLINT = 318;
-var BUCKET = 325;
-var REDSTONE = 331;
-var COMPASS = 345;
-var FISHING_ROD = 346;
-var CLOCK = 347;
+const ARROW = 262;
+const BOW = 261;
+const BUCKET = 325;
+const CHEST = 54;
+const CLOCK = 347;
+const COAL = 263;
+const COBBLESTONE = 4;
+const COMPASS = 345;
+const CRAFTING_TABLE = 58;
+const DIAMOND = 264;
+const DIAMOND_AXE = 279;
+const DIAMOND_HOE = 293;
+const DIAMOND_PICKAXE = 278;
+const DIAMOND_SHOVEL = 277;
+const DIAMOND_SWORD = 276;
+const FEATHER = 288;
+const FISHING_ROD = 346;
+const FLINT = 318;
+const FLINT_AND_STEEL = 259;
+const FURNACE = 61;
+const GOLD = 266;
+const GOLDEN_AXE = 286;
+const GOLDEN_HOE = 294;
+const GOLDEN_PICKAXE = 285;
+const GOLDEN_SHOVEL = 284;
+const GOLDEN_SWORD = 283;
+const IRON_AXE = 258;
+const IRON_HOE = 292;
+const IRON_INGOT = 265;
+const IRON_PICKAXE = 257;
+const IRON_SHOVEL = 256;
+const IRON_SWORD = 267;
+const REDSTONE = 331;
+const REDSTONE_BLOCK = 152;
+const REDSTONETORCH = 76;
+const STICK = 280;
+const STONE_AXE = 275;
+const STONE_HOE = 291;
+const STONE_PICKAXE = 274;
+const STONE_SHOVEL = 273;
+const STONE_SWORD = 272;
+const STRING = 287;
+const TORCH = 50;
+const WOOD = 17;
+const WOOD_PLANK = 5;
+const WOODEN_AXE = 271;
+const WOODEN_HOE = 290;
+const WOODEN_PICKAXE = 270;
+const WOODEN_SHOVEL = 269;
+const WOODEN_SWORD = 268;
 
-var craftTable = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-var inventory = [
+let craftTable = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+let inventory = [
   COBBLESTONE,
   WOOD,
   IRON_INGOT,
@@ -81,11 +82,12 @@ var inventory = [
   0,
   0
 ];
-var selectedCell;
-var selectedIngredient = 0;
-var newItem = 0;
 
-var recipes = [];
+let selectedCell;
+let selectedIngredient = 0;
+let newItem = 0;
+
+let recipes = [];
 recipes.push(["Wood Planks", WOOD_PLANK, [0, 0, 0, 0, WOOD, 0, 0, 0, 0]]);
 recipes.push(["Stick", STICK, [0, 0, 0, 0, WOOD_PLANK, 0, 0, WOOD_PLANK, 0]]);
 recipes.push([
@@ -291,16 +293,16 @@ recipes.push([
   [0, 0, STICK, 0, STICK, STRING, STICK, 0, STRING]
 ]);
 
-//Add newly crafted item to the inventory (if it's not already there)
+// Add newly crafted item to the inventory (if it's not already there)
 function addItemToInventory() {
   var inventoryIsFull = true;
   if (newItem != 0) {
-    //First check if this item is not already in the inventory
+    // First check if this item is not already in the inventory
     if (inventory.indexOf(newItem) == -1) {
-      //Then find an empty location in the inventory
+      // Then find an empty location in the inventory
       for (var i = 0; i < inventory.length; i++) {
         if (inventory[i] == 0) {
-          //Empty location spotted. Add item to the inventory
+          // Empty location spotted. Add item to the inventory
           inventoryIsFull = false;
           inventory[i] = newItem;
           document.getElementById("inventory-" + i).innerHTML =
@@ -315,39 +317,7 @@ function addItemToInventory() {
   }
 }
 
-//A function to compare a recipe with the content of the craft table
-function checkRecipe(recipe) {
-  var match = true;
-  for (var i = 0; i < 9; i++) {
-    if (recipe[i] != craftTable[i]) {
-      match = false;
-      break;
-    }
-  }
-  return match;
-}
-
-//A function to compare the craft table with all recipes to see if an item can be crafted
-function craft() {
-  //Check each recipe one at a time
-  document.getElementById("result").innerHTML = "";
-  newItem = "";
-  for (var i = 0; i < recipes.length; i++) {
-    if (checkRecipe(recipes[i][2])) {
-      newItem = recipes[i][1];
-      //Craft the new item!
-      document.getElementById("result").innerHTML =
-        "<IMG src='http://www.101computing.net/mc/" +
-        +recipes[i][1] +
-        "-0.png'><br/>" +
-        recipes[i][0] +
-        "<BR/>Click on this item to add it to your inventory.";
-      break;
-    }
-  }
-}
-
-//Highlight inventory item when user click on it
+// Highlight inventory item when user click on it
 function selectInventoryItem(cell_ID) {
   if (selectedCell) {
     selectedCell.style.backgroundColor = "#8b8b8b";
@@ -357,7 +327,7 @@ function selectInventoryItem(cell_ID) {
   selectedIngredient = inventory[cell_ID];
 }
 
-//Replace ingredient on craft table when the user click on one of the 9 cells of the craft table
+// Replace ingredient on craft table when the user click on one of the 9 cells of the craft table
 function selectCraftTable(cell_ID) {
   var craftTableCell = document.getElementById("craftTable-" + cell_ID);
   if (craftTableCell.innerHTML == "") {
@@ -370,4 +340,36 @@ function selectCraftTable(cell_ID) {
     craftTable[cell_ID] = 0;
   }
   craft();
+}
+
+// A function to compare the craft table with all recipes to see if an item can be crafted
+function craft() {
+  // Check each recipe one at a time
+  document.getElementById("result").innerHTML = "";
+  newItem = "";
+  for (var i = 0; i < recipes.length; i++) {
+    if (checkRecipe(recipes[i][2])) {
+      newItem = recipes[i][1];
+      // Craft the new item!
+      document.getElementById("result").innerHTML =
+        "<IMG src='http://www.101computing.net/mc/" +
+        +recipes[i][1] +
+        "-0.png'><br/>" +
+        recipes[i][0] +
+        "<BR/>Click on this item to add it to your inventory.";
+      break;
+    }
+  }
+}
+
+// A function to compare a recipe with the content of the craft table
+function checkRecipe(recipe) {
+  var match = true;
+  for (var i = 0; i < 9; i++) {
+    if (recipe[i] != craftTable[i]) {
+      match = false;
+      break;
+    }
+  }
+  return match;
 }
