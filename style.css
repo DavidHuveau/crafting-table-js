@@ -9,7 +9,7 @@ h1 {
   clear: left;
 }
 
-#grid {
+#craft-table {
   float: left;
   margin-bottom: 16px;
 }
@@ -29,7 +29,7 @@ h1 {
   padding: 2px;
 }
 
-#grid .gridCell:nth-child(3n+1) {
+#craft-table .gridCell:nth-child(3n+1) {
   clear: left;
 }
 
@@ -51,6 +51,11 @@ h1 {
   border-left: thick double #373737;
   border-right: double #FFFFFF;
   border-bottom: double #FFFFFF;
+}
+
+#result * {
+  display: block;
+  margin: auto;
 }
 
 #inventory .gridCell:nth-child(9n+1) {
