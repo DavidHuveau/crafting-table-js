@@ -93,10 +93,12 @@ class Game {
     this.newIngredient = null;
     for (let index = 0; index < RECIPES.length; index++) {
       if (this.evaluateRecipe(RECIPES[index][2])) {
-        this.newIngredient = RECIPES[index][1];
-        const imageResult = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`);
+        const [, newIngredient] = RECIPES[index];
+        const imageResult = this.createImageElement(`./assets/${newIngredient}-0.png`, `item-${index}`);
         resultElement.appendChild(imageResult);
         resultElement.appendChild(document.createTextNode("Click on this item to add it to your inventory."));
+
+        this.newIngredient = newIngredient;
         break;
       }
     }
@@ -106,7 +108,7 @@ class Game {
     let match = true;
 
     for (let index = 0; index < 9; index++) {
-      if (recipe[index] != this.craftTable[index]) {
+      if (recipe[index] !== this.craftTable[index]) {
         match = false;
         break;
       }
@@ -144,6 +146,7 @@ class Game {
         return index;
       }
     }
+    return null;
   }
 
   createItemElement(id, className, onClickFn) {
