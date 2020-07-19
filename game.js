@@ -94,9 +94,9 @@ class Game {
     for (let index = 0; index < RECIPES.length; index++) {
       if (this.evaluateRecipe(RECIPES[index][2])) {
         this.newIngredient = RECIPES[index][1];
-        const imageResult = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`)
+        const imageResult = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`);
         resultElement.appendChild(imageResult);
-        resultElement.appendChild(document.createTextNode("Click on this item to add it to your inventory."))
+        resultElement.appendChild(document.createTextNode("Click on this item to add it to your inventory."));
         break;
       }
     }
@@ -119,25 +119,29 @@ class Game {
 
     if (this.newIngredient) {
       if (this.inventory.indexOf(this.newIngredient) === -1) {
-        // Find an empty location in the inventory
-        for (let index = 0; index < this.inventory.length; index++) {
-          debugger
-          if (!this.inventory[index]) {
-            inventoryIsFull = false;
-            this.inventory[index] = this.newIngredient;
+        const emptyLocationIndex = this.findEmptyLocationIndex();
+        if (emptyLocationIndex) {
+          inventoryIsFull = false;
+          this.inventory[emptyLocationIndex] = this.newIngredient;
 
-            const newImage = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`);
-            document.getElementById(`inventory-${index}`).appendChild(newImage);
+          const newImage = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${emptyLocationIndex}`);
+          document.getElementById(`inventory-${emptyLocationIndex}`).appendChild(newImage);
 
-            this.newIngredient = null;
-            break;
-          }
+          this.newIngredient = null;
         }
         if (inventoryIsFull) {
           alert("Inventory is full!");
         }
       } else {
         alert("This ingredient is already in your inventory!");
+      }
+    }
+  }
+
+  findEmptyLocationIndex() {
+    for (let index = 0; index < this.inventory.length; index++) {
+      if (!this.inventory[index]) {
+        return index;
       }
     }
   }
