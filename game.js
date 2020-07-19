@@ -17,7 +17,10 @@ class Game {
   }
 
   bindEvent() {
-    document.getElementById(RESULT_ID).onclick = this.addNewIngredientToInventory;
+    const self = this;
+    document.getElementById(RESULT_ID).onclick = function() {
+      self.addNewIngredientToInventory();
+    }
   }
 
   initCratfingTable() {
@@ -67,7 +70,7 @@ class Game {
 
       const ingredient = this.inventory[index];
       if (ingredient) {
-        const newImage = this.createImageElement(`./assets/${ingredient}-0.png`, `item-${index}`)
+        const newImage = this.createImageElement(`./assets/${ingredient}-0.png`, `item-${index}`);
         newItem.appendChild(newImage);
       }
       inventoryElement.appendChild(newItem);
@@ -112,7 +115,31 @@ class Game {
   }
 
   addNewIngredientToInventory() {
-    debugger
+    let inventoryIsFull = true;
+
+    if (this.newIngredient) {
+      if (this.inventory.indexOf(this.newIngredient) === -1) {
+        // Find an empty location in the inventory
+        for (let index = 0; index < this.inventory.length; index++) {
+          debugger
+          if (!this.inventory[index]) {
+            inventoryIsFull = false;
+            this.inventory[index] = this.newIngredient;
+
+            const newImage = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`);
+            document.getElementById(`inventory-${index}`).appendChild(newImage);
+
+            this.newIngredient = null;
+            break;
+          }
+        }
+        if (inventoryIsFull) {
+          alert("Inventory is full!");
+        }
+      } else {
+        alert("This ingredient is already in your inventory!");
+      }
+    }
   }
 
   createItemElement(id, className, onClickFn) {
@@ -130,33 +157,3 @@ class Game {
     return image;
   }
 }
-
-
-
-
-
-// let newItem = 0;
-
-// // Add newly crafted item to the inventory (if it's not already there)
-// function addItemToInventory() {
-//   var inventoryIsFull = true;
-//   if (newItem != 0) {
-//     // First check if this item is not already in the inventory
-//     if (inventory.indexOf(newItem) == -1) {
-//       // Then find an empty location in the inventory
-//       for (var i = 0; i < inventory.length; i++) {
-//         if (inventory[i] == 0) {
-//           // Empty location spotted. Add item to the inventory
-//           inventoryIsFull = false;
-//           inventory[i] = newItem;
-//           document.getElementById("inventory-" + i).innerHTML =
-//             "<IMG src='http://www.101computing.net/mc/" + +newItem + "-0.png'>";
-//           break;
-//         }
-//       }
-//       if (inventoryIsFull) alert("Inventory is full!");
-//     } else {
-//       alert("This item is already in your inventory!");
-//     }
-//   }
-// }
