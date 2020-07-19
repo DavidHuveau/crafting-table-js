@@ -62,23 +62,22 @@ const INITIAL_INVENTORY = [
   COAL
 ];
 
-// TODO : mettre dans une hash à la place!
-let recipes = [];
-recipes.push(["Wood Planks", WOOD_PLANK, [0, 0, 0, 0, WOOD, 0, 0, 0, 0]]);
-recipes.push(["Stick", STICK, [0, 0, 0, 0, WOOD_PLANK, 0, 0, WOOD_PLANK, 0]]);
-recipes.push([
+let RECIPES = [];
+RECIPES.push(["Wood Planks", WOOD_PLANK, [0, 0, 0, 0, WOOD, 0, 0, 0, 0]]);
+RECIPES.push(["Stick", STICK, [0, 0, 0, 0, WOOD_PLANK, 0, 0, WOOD_PLANK, 0]]);
+RECIPES.push([
   "Bow",
   BOW,
   [STRING, STICK, 0, STRING, 0, STICK, STRING, STICK, 0]
 ]);
-recipes.push(["Arrow", ARROW, [0, FLINT, 0, 0, STICK, 0, 0, FEATHER, 0]]);
-recipes.push(["Torch", TORCH, [0, 0, 0, 0, COAL, 0, 0, STICK, 0]]);
-recipes.push([
+RECIPES.push(["Arrow", ARROW, [0, FLINT, 0, 0, STICK, 0, 0, FEATHER, 0]]);
+RECIPES.push(["Torch", TORCH, [0, 0, 0, 0, COAL, 0, 0, STICK, 0]]);
+RECIPES.push([
   "Redstone Torch",
   REDSTONETORCH,
   [0, 0, 0, 0, REDSTONE, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Redstone Block",
   REDSTONE_BLOCK,
   [
@@ -93,7 +92,7 @@ recipes.push([
     REDSTONE
   ]
 ]);
-recipes.push([
+RECIPES.push([
   "Chest",
   CHEST,
   [
@@ -108,12 +107,12 @@ recipes.push([
     WOOD_PLANK
   ]
 ]);
-recipes.push([
+RECIPES.push([
   "Crafting Table",
   CRAFTING_TABLE,
   [0, 0, 0, WOOD_PLANK, WOOD_PLANK, 0, WOOD_PLANK, WOOD_PLANK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Furnace",
   FURNACE,
   [
@@ -128,142 +127,142 @@ recipes.push([
     COBBLESTONE
   ]
 ]);
-recipes.push([
+RECIPES.push([
   "Bucket",
   BUCKET,
   [0, 0, 0, IRON_INGOT, 0, IRON_INGOT, 0, IRON_INGOT, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Flint and Steel",
   FLINT_AND_STEEL,
   [0, 0, 0, IRON_INGOT, 0, 0, 0, FLINT, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Wooden Axe",
   WOODEN_AXE,
   [WOOD_PLANK, WOOD_PLANK, 0, WOOD_PLANK, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Stone Axe",
   STONE_AXE,
   [COBBLESTONE, COBBLESTONE, 0, COBBLESTONE, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Iron Axe",
   IRON_AXE,
   [IRON_INGOT, IRON_INGOT, 0, IRON_INGOT, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Diamond Axe",
   DIAMOND_AXE,
   [DIAMOND, DIAMOND, 0, DIAMOND, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Golden Axe",
   GOLDEN_AXE,
   [GOLD, GOLD, 0, GOLD, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Wooden Hoe",
   WOODEN_HOE,
   [WOOD_PLANK, WOOD_PLANK, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Stone Hoe",
   STONE_HOE,
   [COBBLESTONE, COBBLESTONE, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Iron Hoe",
   IRON_HOE,
   [IRON_INGOT, IRON_INGOT, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Diamond Hoe",
   DIAMOND_HOE,
   [DIAMOND, DIAMOND, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Golden Hoe",
   GOLDEN_HOE,
   [GOLD, GOLD, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Wooden Pickaxe",
   WOODEN_PICKAXE,
   [WOOD_PLANK, WOOD_PLANK, WOOD_PLANK, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Stone Pickaxe",
   STONE_PICKAXE,
   [COBBLESTONE, COBBLESTONE, COBBLESTONE, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Iron Pickaxe",
   IRON_PICKAXE,
   [IRON_INGOT, IRON_INGOT, IRON_INGOT, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Diamond Pickaxe",
   DIAMOND_PICKAXE,
   [DIAMOND, DIAMOND, DIAMOND, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Golden Pickaxe",
   GOLDEN_PICKAXE,
   [GOLD, GOLD, GOLD, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Wooden Shovel",
   WOODEN_SHOVEL,
   [0, WOOD_PLANK, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Stone Shovel",
   STONE_SHOVEL,
   [0, COBBLESTONE, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Iron Shovel",
   IRON_SHOVEL,
   [0, IRON_INGOT, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Diamond Shovel",
   DIAMOND_SHOVEL,
   [0, DIAMOND, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Golden Shovel",
   GOLDEN_SHOVEL,
   [0, GOLD, 0, 0, STICK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Wooden Sword",
   WOODEN_SWORD,
   [0, WOOD_PLANK, 0, 0, WOOD_PLANK, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Stone Sword",
   STONE_SWORD,
   [0, COBBLESTONE, 0, 0, COBBLESTONE, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Iron Sword",
   IRON_SWORD,
   [0, IRON_INGOT, 0, 0, IRON_INGOT, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Diamond Sword",
   DIAMOND_SWORD,
   [0, DIAMOND, 0, 0, DIAMOND, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Golden Sword",
   GOLDEN_SWORD,
   [0, GOLD, 0, 0, GOLD, 0, 0, STICK, 0]
 ]);
-recipes.push([
+RECIPES.push([
   "Fishing Rod",
   FISHING_ROD,
   [0, 0, STICK, 0, STICK, STRING, STICK, 0, STRING]

@@ -6,14 +6,13 @@ const GRID_CELL_CLASS = "gridCell";
 
 class Game {
   constructor() {
-    this.selectedCell = null;
+    this.selectedInventoryCell = null;
     this.selectedIngredient = null;
     this.newIngredient = null;
 
     this.bindEvent();
 
     this.initCratfingTable();
-
     this.initInventory();
   }
 
@@ -23,36 +22,28 @@ class Game {
 
   initCratfingTable() {
     this.craftTable = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    // this.craftTable = Array(9);
 
     for (let index = 0; index < 9; index++) {
-
-
-      const cell = document.createElement("div");
-      cell.id = `craft-table-${index}`;
-      cell.className = GRID_CELL_CLASS;
-      const self = this;
-      cell.onclick = function () {
-        self.selectCraftTableItem(index);
-      }
-
-      document.getElementById(CRAFTING_TABLE_ID).appendChild(cell);
+      const newItem = this.createItemElement(
+        `craft-table-${index}`,
+        GRID_CELL_CLASS,
+        () => this.selectCraftTableItem(index)
+      );
+      document.getElementById(CRAFTING_TABLE_ID).appendChild(newItem);
     }
-
-
   }
 
   selectCraftTableItem(craftCellIndex) {
     const craftTableCell = document.getElementById(`craft-table-${craftCellIndex}`);
 
     if (craftTableCell.innerHTML === "") {
-      if (this.selectedCell) {
-
+      if (this.selectedInventoryCell) {
         // copy Item
-        craftTableCell.innerHTML = this.selectedCell.innerHTML;
+        craftTableCell.innerHTML = this.selectedInventoryCell.innerHTML;
         this.craftTable[craftCellIndex] = this.selectedIngredient;
       }
     } else {
-
       // clear Item
       craftTableCell.innerHTML = "";
       this.craftTable[craftCellIndex] = 0;
@@ -62,40 +53,33 @@ class Game {
   }
 
   initInventory() {
-
     this.inventory = [...INITIAL_INVENTORY, ...Array(26 - INITIAL_INVENTORY.length)]
 
     const inventoryElement = document.getElementById(INVENTORY_ID);
-
     inventoryElement.innerHTML = "";
-    for (let index = 0; index < 27; index++) {
 
-      const itemElement = document.createElement("div");
-      itemElement.id = `inventory-${index}`;
-      itemElement.className = GRID_CELL_CLASS;
-      const self = this;
-      itemElement.onclick = function() {
-        self.selectInventoryItem(index);
-      }
+    for (let index = 0; index < 27; index++) {
+      const newItem = this.createItemElement(
+        `inventory-${index}`,
+        GRID_CELL_CLASS,
+        () => this.selectInventoryItem(index)
+      );
 
       const ingredient = this.inventory[index];
       if (ingredient) {
-        const imageItem = document.createElement("img");
-        imageItem.src = `./assets/${ingredient}-0.png`;
-        imageItem.alt = `item-${index}`;
-        itemElement.appendChild(imageItem);
+        const newImage = this.createImageElement(`./assets/${ingredient}-0.png`, `item-${index}`)
+        newItem.appendChild(newImage);
       }
-
-      inventoryElement.appendChild(itemElement);
+      inventoryElement.appendChild(newItem);
     }
   }
 
   selectInventoryItem(ingredientIndex) {
-    if (this.selectedCell) {
-      this.selectedCell.style.backgroundColor = "#8b8b8b";
+    if (this.selectedInventoryCell) {
+      this.selectedInventoryCell.style.backgroundColor = "#8b8b8b";
     }
-    this.selectedCell = document.getElementById(`inventory-${ingredientIndex}`);
-    this.selectedCell.style.backgroundColor = "#88FF88";
+    this.selectedInventoryCell = document.getElementById(`inventory-${ingredientIndex}`);
+    this.selectedInventoryCell.style.backgroundColor = "#88FF88";
     this.selectedIngredient = this.inventory[ingredientIndex];
   }
 
@@ -104,13 +88,10 @@ class Game {
     resultElement.innerHTML = "";
 
     this.newIngredient = null;
-    for (let index = 0; index < recipes.length; index++) {
-      if (this.evaluateRecipe(recipes[index][2])) {
-        this.newIngredient = recipes[index][1];
-        const imageResult = document.createElement("img");
-        imageResult.src = `./assets/${this.newIngredient}-0.png`;
-        imageResult.alt = `item-${index}`;
-
+    for (let index = 0; index < RECIPES.length; index++) {
+      if (this.evaluateRecipe(RECIPES[index][2])) {
+        this.newIngredient = RECIPES[index][1];
+        const imageResult = this.createImageElement(`./assets/${this.newIngredient}-0.png`, `item-${index}`)
         resultElement.appendChild(imageResult);
         resultElement.appendChild(document.createTextNode("Click on this item to add it to your inventory."))
         break;
@@ -132,6 +113,21 @@ class Game {
 
   addNewIngredientToInventory() {
     debugger
+  }
+
+  createItemElement(id, className, onClickFn) {
+    const item = document.createElement("div");
+    item.id = id;
+    item.className = className;
+    item.onclick = onClickFn;
+    return item;
+  }
+
+  createImageElement(imagePath, alt) {
+    const image = document.createElement("img");
+    image.src = imagePath;
+    image.alt = alt;
+    return image;
   }
 }
 
