@@ -24,8 +24,7 @@ class Game {
   }
 
   initCratfingTable() {
-    this.craftTable = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    // this.craftTable = Array(9);
+    this.craftTable = Array(9).fill(0);
 
     for (let index = 0; index < 9; index++) {
       const newItem = this.createItemElement(
