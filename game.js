@@ -18,9 +18,9 @@ class Game {
 
   bindEvent() {
     const self = this;
-    document.getElementById(RESULT_ID).onclick = function() {
+    document.getElementById(RESULT_ID).onclick = function () {
       self.addNewIngredientToInventory();
-    }
+    };
   }
 
   initCratfingTable() {
@@ -31,7 +31,7 @@ class Game {
       const newItem = this.createItemElement(
         `craft-table-${index}`,
         GRID_CELL_CLASS,
-        () => this.selectCraftTableItem(index)
+        () => this.selectCraftTableItem(index),
       );
       document.getElementById(CRAFTING_TABLE_ID).appendChild(newItem);
     }
@@ -56,7 +56,7 @@ class Game {
   }
 
   initInventory() {
-    this.inventory = [...INITIAL_INVENTORY, ...Array(26 - INITIAL_INVENTORY.length)]
+    this.inventory = [...INITIAL_INVENTORY, ...Array(26 - INITIAL_INVENTORY.length)];
 
     const inventoryElement = document.getElementById(INVENTORY_ID);
     inventoryElement.innerHTML = "";
@@ -65,7 +65,7 @@ class Game {
       const newItem = this.createItemElement(
         `inventory-${index}`,
         GRID_CELL_CLASS,
-        () => this.selectInventoryItem(index)
+        () => this.selectInventoryItem(index),
       );
 
       const ingredient = this.inventory[index];
